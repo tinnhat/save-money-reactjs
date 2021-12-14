@@ -4,13 +4,18 @@ import Header from "../../components/header";
 import RegisterForm from "./form";
 import Footer from "../../components/footer";
 
-Register.propTypes = {};
+Register.propTypes = {
+  onSubmit: PropTypes.func,
+};
 
 function Register(props) {
+  const handleRegisterFormSubmit = (value) => {
+    console.log("form submit", value);
+  };
   return (
     <div>
       <Header />
-      <RegisterForm></RegisterForm>
+      <RegisterForm onSubmit={handleRegisterFormSubmit}></RegisterForm>
       <Footer />
     </div>
   );
