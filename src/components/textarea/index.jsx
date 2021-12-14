@@ -23,6 +23,7 @@ function TextareaCustom(props) {
         fieldState: { invalid, error },
       }) => (
         <TextField
+          margin="normal"
           label={label}
           error={invalid}
           helperText={error?.message}

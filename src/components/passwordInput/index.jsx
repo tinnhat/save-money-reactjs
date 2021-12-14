@@ -15,7 +15,6 @@ InputPasswordField.propTypes = {
 function InputPasswordField(props) {
   const { form, name, label, disabled } = props;
   const { control } = form;
-  console.log(control);
   return (
     <Controller
       name={name}

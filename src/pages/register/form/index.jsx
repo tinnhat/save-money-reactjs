@@ -21,7 +21,8 @@ function RegisterForm(props) {
   let time = new Date();
   const schema = yup
     .object({
-      userName: yup.string().required("Please enter email"),
+      userName: yup.string().required("Please enter Username"),
+
       email: yup.string().email("Invalid email format").required("Required"),
       password: yup
         .string()
@@ -30,15 +31,40 @@ function RegisterForm(props) {
       rePassword: yup
         .string()
         .oneOf([yup.ref("password"), null], "Passwords must match"),
-      fullName: yup.string().required("Please enter fullname"),
+      fullName: yup
+        .string()
+        .required("Please enter fullname")
+        .test(
+          "should has at least two words",
+          "Please enter at least two words",
+          (value) => value.split(" ").length >= 2
+        ),
       gender: yup.string().required(),
-      dateOfBirth: yup.date(),
-      phoneNumber: yup.string().required("only number"),
-      idCard: yup.string().required("only number"),
-      cardNumber: yup.string().required("only number"),
+      dateOfBirth: yup
+        .date()
+        .max(
+          new Date(Date.now() - 567648000000),
+          "You must be at least 18 years"
+        )
+        .required("Required"),
+      phoneNumber: yup
+        .string()
+        .required("only number")
+        .matches(/^[0-9]+$/, "Must be only digits"),
+      idCard: yup
+        .string()
+        .required("only number")
+        .matches(/^[0-9]+$/, "Must be only digits"),
+      cardNumber: yup
+        .string()
+        .required("only number")
+        .matches(/^[0-9]+$/, "Must be only digits"),
       dateForCard: yup.date(),
       issuedBy: yup.string().required("Please enter issued"),
-      passport: yup.string().required("only number"),
+      passport: yup
+        .string()
+        .required("only number")
+        .matches(/^[0-9]+$/, "Must be only digits"),
       nationality: yup.string().required(),
       address: yup.string().required("Please enter address"),
     })
@@ -64,7 +90,11 @@ function RegisterForm(props) {
     resolver: yupResolver(schema),
   });
   const handleSubmit = (value) => {
-    console.log("register: ", value);
+    const { onSubmit } = props;
+    if (onSubmit) {
+      onSubmit(value);
+    }
+    form.reset();
   };
   return (
     <div className="bkg-purple">
@@ -78,7 +108,7 @@ function RegisterForm(props) {
             </h1>
           </div>
           <div className="register-box">
-            <form action="#" onSubmit={form.handleSubmit(handleSubmit)}>
+            <form onSubmit={form.handleSubmit(handleSubmit)}>
               <p className="login__title">Register</p>
               <p className="login__desc text-center">
                 Register and start managing your bank!
