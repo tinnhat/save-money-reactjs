@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/user/register" element={<Register />} />
         {/* test truocws */}
         <Route path="/send" element={<SendMoney />} />
         <Route path="/account" element={<Account />} />

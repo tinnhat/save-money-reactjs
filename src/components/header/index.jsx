@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import logo from "../../assets/img/logo.png";
 import "./header.scss";
+import { Link } from "react-router-dom";
 // import "../../main.scss";
 Header.propTypes = {};
 
@@ -16,28 +17,28 @@ function Header(props) {
           </a>
           <ul class="navbar__list">
             <li class="navbar__list-item">
-              <a href="#" class="list-item-link text-white">
+              <Link to="/" class="list-item-link text-white">
                 ABOUT
-              </a>
+              </Link>
             </li>
             <li class="navbar__list-item">
-              <a href="#" class="list-item-link text-white">
+              <Link to="/" class="list-item-link text-white">
                 HOW IT WORKS
-              </a>
+              </Link>
             </li>
             <li class="navbar__list-item">
-              <a href="#" class="list-item-link text-white">
+              <Link to="/" class="list-item-link text-white">
                 CONTACT
-              </a>
+              </Link>
             </li>
           </ul>
           <div class="login-box">
-            <a href="./register.html" class="login-box__register text-green">
+            <Link to="/register" class="login-box__register text-green">
               Register Now
-            </a>
-            <a href="./login.html" class="btn btn-login bkg-green">
+            </Link>
+            <Link to="/login" class="btn btn-login bkg-green">
               LOGIN
-            </a>
+            </Link>
           </div>
         </div>
       </div>

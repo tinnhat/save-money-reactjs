@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./login.scss";
 import card from "../../../assets/img/card1.png";
+import { Link } from "react-router-dom";
 LoginForm.propTypes = {};
 
 function LoginForm(props) {
@@ -49,15 +50,15 @@ function LoginForm(props) {
                   />
                   <label for="styled-checkbox-2">Remember me</label>
                 </div>
-                <a href="#" className="forgot-link">
+                <Link to="/" className="forgot-link">
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <button className="btn btn-sb-login" id="btn-login-submit">
                 Login
               </button>
               <p className="sign-up-link">
-                Don't have an account? <a href="./register.html">Sign up</a>
+                Don't have an account? <Link to="/register">Sign up</Link>
               </p>
             </div>
           </form>

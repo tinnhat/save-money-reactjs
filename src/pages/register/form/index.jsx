@@ -13,6 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Moment from "react-moment";
 import "moment-timezone";
+import { Link } from "react-router-dom";
 RegisterForm.propTypes = {
   onSubmit: PropTypes.func,
 };
@@ -21,17 +22,17 @@ function RegisterForm(props) {
   let time = new Date();
   const schema = yup
     .object({
-      userName: yup.string().required("Please enter Username"),
+      // userName: yup.string().required("Please enter Username"),
 
       email: yup.string().email("Invalid email format").required("Required"),
       password: yup
         .string()
         .matches(/^.*(?=.{6,})/, "Password must contain at least 6 symbols")
         .required("Please enter your password"),
-      rePassword: yup
-        .string()
-        .oneOf([yup.ref("password"), null], "Passwords must match"),
-      fullName: yup
+      // rePassword: yup
+      //   .string()
+      //   .oneOf([yup.ref("password"), null], "Passwords must match"),
+      name: yup
         .string()
         .required("Please enter fullname")
         .test(
@@ -39,53 +40,53 @@ function RegisterForm(props) {
           "Please enter at least two words",
           (value) => value.split(" ").length >= 2
         ),
-      gender: yup.string().required(),
-      dateOfBirth: yup
-        .date()
-        .max(
-          new Date(Date.now() - 567648000000),
-          "You must be at least 18 years"
-        )
-        .required("Required"),
-      phoneNumber: yup
-        .string()
-        .required("only number")
-        .matches(/^[0-9]+$/, "Must be only digits"),
-      idCard: yup
-        .string()
-        .required("only number")
-        .matches(/^[0-9]+$/, "Must be only digits"),
-      cardNumber: yup
-        .string()
-        .required("only number")
-        .matches(/^[0-9]+$/, "Must be only digits"),
-      dateForCard: yup.date(),
-      issuedBy: yup.string().required("Please enter issued"),
-      passport: yup
-        .string()
-        .required("only number")
-        .matches(/^[0-9]+$/, "Must be only digits"),
-      nationality: yup.string().required(),
-      address: yup.string().required("Please enter address"),
+      // gender: yup.string().required(),
+      // dateOfBirth: yup
+      //   .date()
+      //   .max(
+      //     new Date(Date.now() - 567648000000),
+      //     "You must be at least 18 years"
+      //   )
+      //   .required("Required"),
+      // phoneNumber: yup
+      //   .string()
+      //   .required("only number")
+      //   .matches(/^[0-9]+$/, "Must be only digits"),
+      // idCard: yup
+      //   .string()
+      //   .required("only number")
+      //   .matches(/^[0-9]+$/, "Must be only digits"),
+      // cardNumber: yup
+      //   .string()
+      //   .required("only number")
+      //   .matches(/^[0-9]+$/, "Must be only digits"),
+      // dateForCard: yup.date(),
+      // issuedBy: yup.string().required("Please enter issued"),
+      // passport: yup
+      //   .string()
+      //   .required("only number")
+      //   .matches(/^[0-9]+$/, "Must be only digits"),
+      // nationality: yup.string().required(),
+      // address: yup.string().required("Please enter address"),
     })
     .required();
   const form = useForm({
     defaultValues: {
-      userName: "",
+      //userName: "",
       email: "",
       password: "",
-      rePassword: "",
-      fullName: "",
-      gender: "",
-      dateOfBirth: time,
-      phoneNumber: "",
-      idCard: "",
-      cardNumber: "",
-      dateForCard: time,
-      issuedBy: "",
-      passport: "",
-      nationality: "",
-      address: "",
+      name: "",
+      // rePassword: "",
+      // gender: "",
+      // dateOfBirth: time,
+      // phoneNumber: "",
+      // idCard: "",
+      // cardNumber: "",
+      // dateForCard: time,
+      // issuedBy: "",
+      // passport: "",
+      // nationality: "",
+      // address: "",
     },
     resolver: yupResolver(schema),
   });
@@ -114,12 +115,12 @@ function RegisterForm(props) {
                 Register and start managing your bank!
               </p>
               <div className="flex-box">
-                <InputField
+                {/* <InputField
                   name="userName"
                   label="Username"
                   form={form}
                   required
-                />
+                /> */}
                 <InputField name="email" label="Email" form={form} required />
               </div>
               <div className="flex-box">
@@ -129,27 +130,27 @@ function RegisterForm(props) {
                   form={form}
                   required
                 />
-                <InputPasswordField
+                {/* <InputPasswordField
                   name="rePassword"
                   label="Re-password"
                   form={form}
                   required
-                />
+                /> */}
               </div>
               <div className="flex-box">
                 <InputField
-                  name="fullName"
+                  name="name"
                   label="Full Name"
                   form={form}
                   required
                 />
-                <div className="gender-box">
+                {/* <div className="gender-box">
                   <p>Gender:</p>
                   <RadioGroupCustom name="gender" form={form} />
-                </div>
+                </div> */}
               </div>
 
-              <div className="flex-box">
+              {/* <div className="flex-box">
                 <div className="date-box">
                   <p className="date-box-text">Date of birth:</p>
                   <DatePickerCustom name="dateOfBirth" form={form} />
@@ -197,7 +198,7 @@ function RegisterForm(props) {
                 />
                 <div className="flex-box">
                   <p className="nationlity">nationality</p>
-                  {/* <!-- select --> */}
+                 
                   <SelectCustom name="nationality" form={form} />
                 </div>
               </div>
@@ -206,7 +207,7 @@ function RegisterForm(props) {
                 label="Address"
                 form={form}
                 required
-              />
+              /> */}
               <button
                 type="submit"
                 className="btn btn-sb-login mt-10"
@@ -215,7 +216,7 @@ function RegisterForm(props) {
                 Register
               </button>
               <p className="register-link">
-                Already have account? <a href="./login.html">Login Now</a>
+                Already have account? <Link to="/login">Login Now</Link>
               </p>
             </form>
           </div>

@@ -34,7 +34,7 @@ function HeaderLanding(props) {
             </li>
           </ul>
           <div className="login-box">
-            <Link to="/register" className="login-box__register">
+            <Link to="/user/register" className="login-box__register">
               Register Now
             </Link>
             <Link to="/login" className="btn btn-login">
