@@ -8,35 +8,35 @@ Header.propTypes = {};
 
 function Header(props) {
   return (
-    <header class="header header-pink">
-      <div class="container">
-        <div class="navbar">
-          <a class="navbar-logo" href="./index.html">
-            <img src={logo} alt="" class="navbar-logo__img" />
-            <p class="navbar-logo__text text-green">Save Money</p>
-          </a>
-          <ul class="navbar__list">
-            <li class="navbar__list-item">
-              <Link to="/" class="list-item-link text-white">
+    <header className="header header-pink">
+      <div className="container">
+        <div className="navbar">
+          <Link className="navbar-logo" to="/home">
+            <img src={logo} alt="" className="navbar-logo__img" />
+            <p className="navbar-logo__text text-green">Save Money</p>
+          </Link>
+          <ul className="navbar__list">
+            <li className="navbar__list-item">
+              <Link to="/" className="list-item-link text-white">
                 ABOUT
               </Link>
             </li>
-            <li class="navbar__list-item">
-              <Link to="/" class="list-item-link text-white">
+            <li className="navbar__list-item">
+              <Link to="/" className="list-item-link text-white">
                 HOW IT WORKS
               </Link>
             </li>
-            <li class="navbar__list-item">
-              <Link to="/" class="list-item-link text-white">
+            <li className="navbar__list-item">
+              <Link to="/" className="list-item-link text-white">
                 CONTACT
               </Link>
             </li>
           </ul>
-          <div class="login-box">
-            <Link to="/register" class="login-box__register text-green">
+          <div className="login-box">
+            <Link to="/register" className="login-box__register text-green">
               Register Now
             </Link>
-            <Link to="/login" class="btn btn-login bkg-green">
+            <Link to="/login" className="btn btn-login bkg-green">
               LOGIN
             </Link>
           </div>

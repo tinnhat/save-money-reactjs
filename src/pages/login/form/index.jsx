@@ -3,9 +3,36 @@ import PropTypes from "prop-types";
 import "./login.scss";
 import card from "../../../assets/img/card1.png";
 import { Link } from "react-router-dom";
+import InputField from "../../../components/InputField";
+import InputPasswordField from "../../../components/passwordInput";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { useForm } from "react-hook-form";
+
 LoginForm.propTypes = {};
 
 function LoginForm(props) {
+  
+  const schema = yup
+    .object({
+      email: yup.string().email("Invalid email format").required("Required"),
+      password: yup.string().required("Please enter your password"),
+    })
+    .required();
+  const form = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(schema),
+  });
+  const handleSubmit = (value) => {
+    const { onSubmit } = props;
+    if (onSubmit) {
+      onSubmit(value);
+    }
+    form.reset();
+  };
   return (
     <div className="bkg-purple">
       <div className="container">
@@ -19,26 +46,17 @@ function LoginForm(props) {
             </h1>
           </div>
 
-          <form action="#">
+          <form onSubmit={form.handleSubmit(handleSubmit)}>
             <p className="login__title">Sign In</p>
             <p className="login__desc">Sign in and start managing your bank!</p>
             <div className="login-form">
               <div className="info-input-box">
-                <input
-                  type="text"
-                  placeholder="Enter email"
-                  style={{ color: "#fff" }}
-                  name="username"
-                  className="input-box"
-                  id="username"
-                />
-                <input
-                  type="password"
-                  placeholder="Enter password"
-                  style={{ color: "#fff" }}
+                <InputField name="email" label="Email" form={form} required />
+                <InputPasswordField
                   name="password"
-                  className="input-box"
-                  id="password"
+                  label="Password"
+                  form={form}
+                  required
                 />
               </div>
               <div className="remember-box">
@@ -54,7 +72,11 @@ function LoginForm(props) {
                   Forgot password?
                 </Link>
               </div>
-              <button className="btn btn-sb-login" id="btn-login-submit">
+              <button
+                type="submit"
+                className="btn btn-sb-login"
+                id="btn-login-submit"
+              >
                 Login
               </button>
               <p className="sign-up-link">

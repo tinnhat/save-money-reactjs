@@ -78,7 +78,7 @@ function RegisterForm(props) {
       name: "",
       // rePassword: "",
       // gender: "",
-      // dateOfBirth: time,
+      dateOfBirth: time,
       // phoneNumber: "",
       // idCard: "",
       // cardNumber: "",
@@ -153,7 +153,11 @@ function RegisterForm(props) {
               {/* <div className="flex-box">
                 <div className="date-box">
                   <p className="date-box-text">Date of birth:</p>
-                  <DatePickerCustom name="dateOfBirth" form={form} />
+                  <DatePickerCustom
+                    name="dateOfBirth"
+                    form={form}
+                    dateFormat={"MM/yyyy"}
+                  />
                 </div>
                 <InputField
                   name="phoneNumber"

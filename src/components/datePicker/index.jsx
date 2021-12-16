@@ -10,7 +10,7 @@ DatePickerCustom.propTypes = {
 };
 
 function DatePickerCustom(props) {
-  const { form, name } = props;
+  const { form, name, dateFormat } = props;
   const { control } = form;
 
   return (
@@ -18,7 +18,12 @@ function DatePickerCustom(props) {
       control={control}
       name={name}
       render={({ field: { onChange, onBlur, value, ref } }) => (
-        <ReactDatePicker onChange={onChange} onBlur={onBlur} selected={value} />
+        <ReactDatePicker
+          onChange={onChange}
+          onBlur={onBlur}
+          selected={value}
+          dateFormat={dateFormat}
+        />
       )}
     />
   );

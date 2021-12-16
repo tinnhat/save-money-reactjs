@@ -3,19 +3,21 @@ import PropTypes from "prop-types";
 import "../../main.scss";
 
 import Footer from "../../components/footer";
-import Header from "./headerLanding";
+
 import Social from "./social-info";
 import Customer from "./customer";
 import Dashboard from "./dashboard";
 import Subcirbe from "./subcribe";
-import HeaderLanding from "./headerLanding";
+import Header from "../../components/header";
+import HeaderContent from "../../components/headerContent";
 
 LandingPage.propTypes = {};
 
 function LandingPage(props) {
   return (
     <div>
-      <HeaderLanding></HeaderLanding>
+      <Header></Header>
+      <HeaderContent></HeaderContent>
       <Social></Social>
       <Customer></Customer>
       <Dashboard></Dashboard>
