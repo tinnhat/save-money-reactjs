@@ -22,16 +22,19 @@ function RegisterForm(props) {
   let time = new Date();
   const schema = yup
     .object({
-      // userName: yup.string().required("Please enter Username"),
+      username: yup.string().required("Please enter Username"),
 
-      email: yup.string().email("Invalid email format").required("Required"),
+      email: yup
+        .string()
+        .email("Invalid email format")
+        .required("Please enter your email"),
       password: yup
         .string()
         .matches(/^.*(?=.{6,})/, "Password must contain at least 6 symbols")
         .required("Please enter your password"),
-      // rePassword: yup
-      //   .string()
-      //   .oneOf([yup.ref("password"), null], "Passwords must match"),
+      rePassword: yup
+        .string()
+        .oneOf([yup.ref("password"), null], "Passwords must match"),
       name: yup
         .string()
         .required("Please enter fullname")
@@ -40,53 +43,57 @@ function RegisterForm(props) {
           "Please enter at least two words",
           (value) => value.split(" ").length >= 2
         ),
-      // gender: yup.string().required(),
-      // dateOfBirth: yup
-      //   .date()
-      //   .max(
-      //     new Date(Date.now() - 567648000000),
-      //     "You must be at least 18 years"
-      //   )
-      //   .required("Required"),
-      // phoneNumber: yup
-      //   .string()
-      //   .required("only number")
-      //   .matches(/^[0-9]+$/, "Must be only digits"),
-      // idCard: yup
-      //   .string()
-      //   .required("only number")
-      //   .matches(/^[0-9]+$/, "Must be only digits"),
-      // cardNumber: yup
-      //   .string()
-      //   .required("only number")
-      //   .matches(/^[0-9]+$/, "Must be only digits"),
-      // dateForCard: yup.date(),
-      // issuedBy: yup.string().required("Please enter issued"),
-      // passport: yup
-      //   .string()
-      //   .required("only number")
-      //   .matches(/^[0-9]+$/, "Must be only digits"),
-      // nationality: yup.string().required(),
-      // address: yup.string().required("Please enter address"),
+      gender: yup.string().required(),
+      dob: yup
+        .date()
+        .max(
+          new Date(Date.now() - 567648000000),
+          "You must be at least 18 years"
+        )
+        .required("Required"),
+      phonenumber: yup
+        .string()
+        .required("Please enter your phone number")
+        .matches(/^[0-9]+$/, "Must be only digits"),
+      nationalid: yup
+        .string()
+        .required("Please enter your ID number")
+        .matches(/^[0-9]+$/, "Must be only digits"),
+      creditcard: yup
+        .string()
+        .required("Please enter your card number")
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .min(16, "Please enter full number")
+        .max(19, "Wrong card number"),
+      carddate: yup.date(),
+      creditcardbrand: yup.string().required("Please enter issued"),
+      passportid: yup
+        .string()
+        .required("Please enter your passport number")
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .min(8, "Please enter full number")
+        .max(8, "Wrong passport number"),
+      nationality: yup.string().required(),
+      address: yup.string().required("Please enter address"),
     })
     .required();
   const form = useForm({
     defaultValues: {
-      //userName: "",
+      username: "",
       email: "",
       password: "",
       name: "",
-      // rePassword: "",
-      // gender: "",
-      dateOfBirth: time,
-      // phoneNumber: "",
-      // idCard: "",
-      // cardNumber: "",
-      // dateForCard: time,
-      // issuedBy: "",
-      // passport: "",
-      // nationality: "",
-      // address: "",
+      rePassword: "",
+      gender: "",
+      dob: time,
+      phonenumber: "",
+      nationalid: "",
+      creditcard: "",
+      carddate: time,
+      creditcardbrand: "",
+      passportid: "",
+      nationality: "",
+      address: "",
     },
     resolver: yupResolver(schema),
   });
@@ -115,12 +122,12 @@ function RegisterForm(props) {
                 Register and start managing your bank!
               </p>
               <div className="flex-box">
-                {/* <InputField
-                  name="userName"
+                <InputField
+                  name="username"
                   label="Username"
                   form={form}
                   required
-                /> */}
+                />
                 <InputField name="email" label="Email" form={form} required />
               </div>
               <div className="flex-box">
@@ -130,12 +137,12 @@ function RegisterForm(props) {
                   form={form}
                   required
                 />
-                {/* <InputPasswordField
+                <InputPasswordField
                   name="rePassword"
                   label="Re-password"
                   form={form}
                   required
-                /> */}
+                />
               </div>
               <div className="flex-box">
                 <InputField
@@ -144,23 +151,19 @@ function RegisterForm(props) {
                   form={form}
                   required
                 />
-                {/* <div className="gender-box">
+                <div className="gender-box">
                   <p>Gender:</p>
                   <RadioGroupCustom name="gender" form={form} />
-                </div> */}
+                </div>
               </div>
 
-              {/* <div className="flex-box">
+              <div className="flex-box">
                 <div className="date-box">
                   <p className="date-box-text">Date of birth:</p>
-                  <DatePickerCustom
-                    name="dateOfBirth"
-                    form={form}
-                    dateFormat={"MM/yyyy"}
-                  />
+                  <DatePickerCustom name="dob" form={form} />
                 </div>
                 <InputField
-                  name="phoneNumber"
+                  name="phonenumber"
                   label="Phone Number"
                   form={form}
                   required
@@ -169,13 +172,13 @@ function RegisterForm(props) {
 
               <div className="flex-box">
                 <InputField
-                  name="idCard"
+                  name="nationalid"
                   label="ID Card"
                   form={form}
                   required
                 />
                 <InputField
-                  name="cardNumber"
+                  name="creditcard"
                   label="Card Number"
                   form={form}
                   required
@@ -183,26 +186,29 @@ function RegisterForm(props) {
               </div>
               <div className="flex-box">
                 <InputField
-                  name="issuedBy"
+                  name="creditcardbrand"
                   label="Issued by"
                   form={form}
                   required
                 />
                 <div className="date-box">
                   <p className="date-box-text ml-20">Date for card:</p>
-                  <DatePickerCustom name="dateForCard" form={form} />
+                  <DatePickerCustom
+                    name="carddate"
+                    dateFormat={"MM/yyyy"}
+                    form={form}
+                  />
                 </div>
               </div>
               <div className="flex-box">
                 <InputField
-                  name="passport"
+                  name="passportid"
                   label="Passport"
                   form={form}
                   required
                 />
                 <div className="flex-box">
-                  <p className="nationlity">nationality</p>
-                 
+                  <p className="date-box-text">Nationality</p>
                   <SelectCustom name="nationality" form={form} />
                 </div>
               </div>
@@ -211,7 +217,7 @@ function RegisterForm(props) {
                 label="Address"
                 form={form}
                 required
-              /> */}
+              />
               <button
                 type="submit"
                 className="btn btn-sb-login mt-10"

@@ -35424,10 +35424,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   justify-content: center;
 }
 
-.login-box,
-.register-box {
-  width: 360px;
-}
+
 
 @media (max-width: 576px) {
   .login-box,

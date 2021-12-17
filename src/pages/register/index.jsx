@@ -3,12 +3,10 @@ import PropTypes from "prop-types";
 import Header from "../../components/header";
 import RegisterForm from "./form";
 import Footer from "../../components/footer";
-import { useDispatch } from "react-redux";
-import { register } from "../../feature/userSlice/userSlice";
-import { unwrapResult } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 Register.propTypes = {
   onSubmit: PropTypes.func,
 };

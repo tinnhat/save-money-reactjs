@@ -1,16 +1,20 @@
+import storageKeys from "../../constant/storage-keys";
+import userApi from "../../api/userApi";
+import adminStorageKeys from "../../constant/admin-storage-keys";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
-const { userAPI } = require("../../api/userApi");
+
 export const register = createAsyncThunk("user/register", async (payload) => {
   //call API to register
-  const data = await userAPI.register(payload);
+  const data = await userApi.register(payload);
   //save data to localstorage
-  localStorage.setItem("user", JSON.stringify(data));
+  localStorage.setItem(storageKeys.TOKEN, data.jwt);
+  localStorage.setItem("user", data);
   //return user data
   return data;
 });
 export const login = createAsyncThunk("user/login", async (payload) => {
   //call API to login
-  const data = await userAPI.login(payload);
+  const data = await userApi.login(payload);
   //save data to localstorage
   // localStorage.setItem("user", JSON.stringify(data));
   localStorage.setItem("access_token", data.accesstoken);
