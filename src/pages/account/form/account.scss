@@ -45,7 +45,15 @@
 .pass-change {
   color: $green-color;
   cursor: pointer;
+  margin-top: 20px;
+  display: block;
 }
 .changepass-box {
   margin-top: 20px;
+}
+.hide {
+  display: none;
+}
+.flex-center {
+  justify-content: center !important;
 }

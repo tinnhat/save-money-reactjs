@@ -4,15 +4,18 @@ import LoginFormAdmin from "./form";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import adminStorageKeys from "../../../constant/admin-storage-keys";
 import AdminHomePage from "../components/homepage";
+import { login } from "../../../feature/userSlice/userSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
+
 LoginAdmin.propTypes = {};
 
 function LoginAdmin(props) {
   let navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const url = "http://localhost:5000/user/login";
   const handleOnSubmit = (value) => {
     console.log("login submit", value);
@@ -21,13 +24,15 @@ function LoginAdmin(props) {
       .then((res) => {
         console.log(res.data.accesstoken);
         console.log("data tra ve", res.data);
-
         //check role
         //role =1 (admin sẽ vào trang admin)
-        localStorage.setItem(adminStorageKeys.TOKEN, res.data.accesstoken);
-        navigate(0);
-        //else sẽ báo lỗi
-        // if( )
+        if (res.data.ruser.role === 1) {
+          localStorage.setItem(adminStorageKeys.TOKEN, res.data.accesstoken);
+          toast.success("Welcome back Adminitrator");
+          navigate(0);
+        } else {
+          toast.error("Access Denied");
+        }
       })
       .catch((err) => {
         console.log(err.response.data.msg);

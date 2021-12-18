@@ -6,10 +6,11 @@ import Footer from "../../components/footer";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useDispatch } from "react-redux";
 import storageKeys from "../../constant/storage-keys";
 import { useNavigate } from "react-router-dom";
-
+import { login } from "../../feature/userSlice/userSlice";
+import { unwrapResult } from "@reduxjs/toolkit";
 Login.propTypes = {
   onSubmit: PropTypes.func,
 };
@@ -17,15 +18,16 @@ Login.propTypes = {
 function Login(props) {
   const navigate = useNavigate();
   const url = "http://localhost:5000/user/login";
-  const handleOnSubmit = (value) => {
+  const handleOnSubmit = async (value) => {
     console.log("login submit", value);
     axios
       .post(url, value)
       .then((res) => {
-        console.log(res.data.accesstoken);
         console.log("data tra ve", res.data);
         localStorage.setItem(storageKeys.TOKEN, res.data.accesstoken);
+        localStorage.setItem(storageKeys.USER, JSON.stringify(res.data.ruser));
         navigate("/home");
+        navigate(0);
       })
       .catch((err) => {
         console.log(err.response.data.msg);

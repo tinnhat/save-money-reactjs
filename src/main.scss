@@ -1,6 +1,12 @@
 @import "./variable";
 @import "./reset";
 
+.main {
+  overflow-x: hidden;
+}
+.content-wrapper {
+  overflow-x: scroll;
+}
 .wrapper {
   max-width: 1440px;
   margin: 0 auto;

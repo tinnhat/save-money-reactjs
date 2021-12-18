@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 HeaderAdmin.propTypes = {};
 
@@ -19,25 +20,20 @@ function HeaderAdmin(props) {
             Home
           </a>
         </li>
-        <li className="nav-item d-none d-sm-inline-block">
-          <a href="#" className="nav-link">
-            Contact
-          </a>
-        </li>
       </ul>
 
       {/* <!-- Right navbar links --> */}
       <ul className="navbar-nav ml-auto">
         {/* <!-- Navbar Search --> */}
         <li className="nav-item">
-          <a
+          <Link
             className="nav-link"
             data-widget="navbar-search"
-            href="#"
+            to="/home"
             role="button"
           >
             <i className="fas fa-search"></i>
-          </a>
+          </Link>
           <div className="navbar-search-block">
             <form className="form-inline">
               <div className="input-group input-group-sm">

@@ -17,8 +17,8 @@ function RadioGroupCustom(props) {
     <Controller
       render={({ field }) => (
         <RadioGroup aria-label="gender" {...field}>
-          <FormControlLabel value="female" control={<Radio />} label="Female" />
-          <FormControlLabel value="male" control={<Radio />} label="Male" />
+          <FormControlLabel value="Female" control={<Radio />} label="Female" />
+          <FormControlLabel value="Male" control={<Radio />} label="Male" />
         </RadioGroup>
       )}
       name={name}

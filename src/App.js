@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Route, Routes, Redirect, Navigate } from "react-router-dom";
 import adminStorageKeys from "./constant/admin-storage-keys";
+import storageKeys from "./constant/storage-keys";
 import Account from "./pages/account";
+import AllUsers from "./pages/admin/allUser";
 import AdminHomePage from "./pages/admin/components/homepage";
 import LoginAdmin from "./pages/admin/login";
+import Profit from "./pages/admin/Profit";
 
 import ErrorPage from "./pages/error";
 import LandingPage from "./pages/landing";
@@ -15,19 +18,42 @@ function App() {
   const [isLogin, setIsLogin] = useState(
     localStorage.getItem(adminStorageKeys.TOKEN) != null
   );
+  const [isUserLogin, setIsUserLogin] = useState(
+    localStorage.getItem(storageKeys.TOKEN) != null
+  );
   return (
     <div className="main">
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<LandingPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        {/* test truocws */}
-        <Route path="/send" element={<SendMoney />} />
-        <Route path="/account" element={<Account />} />
+        <Route
+          path="/login"
+          element={isUserLogin ? <LandingPage /> : <Login />}
+        />
+        <Route
+          path="/register"
+          element={isUserLogin ? <LandingPage /> : <Register />}
+        />
+        <Route path="/send" element={isUserLogin ? <SendMoney /> : <Login />} />
+        <Route
+          path="/account"
+          element={isUserLogin ? <Account /> : <Login />}
+        />
         <Route
           path="/admin"
           element={isLogin ? <AdminHomePage /> : <LoginAdmin />}
+        />
+        <Route
+          path="/admin/allusers"
+          element={isLogin ? <AllUsers /> : <LoginAdmin />}
+        />
+        <Route
+          path="/admin/dashboard"
+          element={isLogin ? <AdminHomePage /> : <LoginAdmin />}
+        />
+        <Route
+          path="/admin/profit"
+          element={isLogin ? <Profit /> : <LoginAdmin />}
         />
         <Route path="*" element={<ErrorPage />} />
       </Routes>

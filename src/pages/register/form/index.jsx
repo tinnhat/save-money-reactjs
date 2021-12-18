@@ -158,7 +158,7 @@ function RegisterForm(props) {
               </div>
 
               <div className="flex-box">
-                <div className="date-box">
+                <div className="date-box ">
                   <p className="date-box-text">Date of birth:</p>
                   <DatePickerCustom name="dob" form={form} />
                 </div>

@@ -17,17 +17,26 @@ export const login = createAsyncThunk("user/login", async (payload) => {
   const data = await userApi.login(payload);
   //save data to localstorage
   // localStorage.setItem("user", JSON.stringify(data));
-  localStorage.setItem("access_token", data.accesstoken);
+  localStorage.setItem(storageKeys.TOKEN, data.accesstoken);
+  localStorage.setItem(storageKeys.USER, JSON.stringify(data.ruser));
   //return user data
   return data;
 });
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    current: {},
+    current: JSON.parse(localStorage.getItem(storageKeys.USER)) || {},
     settings: {},
   },
-  reducers: {},
+  reducers: {
+    logout(state) {
+      //clear localstorage
+      //remove token
+      localStorage.removeItem(storageKeys.TOKEN);
+      localStorage.removeItem(storageKeys.USER);
+      state.current = {};
+    },
+  },
   extraReducers: {
     [register.fulfilled]: (state, action) => {
       state.current = action.payload;
@@ -37,5 +46,6 @@ const userSlice = createSlice({
     },
   },
 });
-const { reducer } = userSlice;
+const { actions, reducer } = userSlice;
+export const { logout } = actions;
 export default reducer;

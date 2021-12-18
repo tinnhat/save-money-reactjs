@@ -4,6 +4,7 @@ import "../header/header.scss";
 import "../../main.scss";
 import imgHeader from "../../assets/img/header-card.png";
 import iconHeaderImg from "../../assets/img/image-528.png";
+import { Link } from "react-router-dom";
 HeaderContent.propTypes = {};
 
 function HeaderContent(props) {
@@ -20,9 +21,9 @@ function HeaderContent(props) {
                 <span>Meet the only spend management</span>platform and
                 corporate card.
               </p>
-              <a href="./sendMoney.html" class="btn">
+              <Link to="/send" class="btn">
                 Save Now
-              </a>
+              </Link>
             </div>
             <img src={imgHeader} alt="" class="header-banner-img" />
           </div>

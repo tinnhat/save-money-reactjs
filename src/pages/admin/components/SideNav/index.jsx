@@ -2,7 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import Button from "@mui/material/Button";
 import adminStorageKeys from "../../../../constant/admin-storage-keys";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import avatar from "../../../../assets/img/avatar5.png";
+import logo from "../../../../assets/img/AdminLTELogo.png";
+
 SideNav.propTypes = {};
 
 function SideNav(props) {
@@ -15,7 +18,7 @@ function SideNav(props) {
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
       <a href="index3.html" className="brand-link">
         <img
-          src="dist/img/AdminLTELogo.png"
+          src={logo}
           alt="AdminLTE Logo"
           className="brand-image img-circle elevation-3"
           style={{ opacity: ".8" }}
@@ -26,7 +29,7 @@ function SideNav(props) {
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
             <img
-              src="dist/img/user2-160x160.jpg"
+              src={avatar}
               className="img-circle elevation-2"
               alt="User Image"
             />
@@ -44,26 +47,41 @@ function SideNav(props) {
             role="menu"
             data-accordion="false"
           >
-            <li className="nav-item menu-open">
-              <a href="#" className="nav-link active">
-                <i className="nav-icon fas fa-tachometer-alt" />
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/admin/dashboard"
+                activeClassName="active"
+                className="nav-link "
+              >
+                <i class="nav-icon fas fa-chart-pie"></i>
                 <p>Dashboard</p>
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a href="pages/widgets.html" className="nav-link">
+              <NavLink
+                exact
+                activeClassName="active"
+                to="/admin/allusers"
+                className="nav-link"
+              >
                 <i className="nav-icon fas fa-th" />
                 <p>
                   Users
                   <span className="right badge badge-danger">New</span>
                 </p>
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a href="#" className="nav-link">
+              <NavLink
+                activeClassName="active"
+                exact
+                to="/admin/profit"
+                className="nav-link"
+              >
                 <i className="nav-icon fas fa-copy" />
                 <p>Profit</p>
-              </a>
+              </NavLink>
             </li>
           </ul>
           {/* log out */}
