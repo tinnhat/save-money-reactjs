@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import "./register.scss";
 import PropTypes from "prop-types";
 import axios from "axios";
 import adminStorageKeys from "../../../../constant/admin-storage-keys";
@@ -11,9 +12,26 @@ import { GlobalFilter } from "./globalFilter";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Moment from "moment";
+import Backdrop from "@mui/material/Backdrop";
+import Box from "@mui/material/Box";
+import Modal from "@mui/material/Modal";
+import Fade from "@mui/material/Fade";
+import Typography from "@mui/material/Typography";
+import { useForm } from "react-hook-form";
+import InputField from "../../../../components/InputField";
+import InputPasswordField from "../../../../components/passwordInput";
+import RadioGroupCustom from "../../../../components/radioGroup";
+import DatePickerCustom from "../../../../components/datePicker";
+import TextareaCustom from "../../../../components/textarea";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import SelectCustom from "../../../../components/select";
 UserTable.propTypes = {};
 
 function UserTable(props) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [users, setUsers] = useState([]);
   const adminToken = localStorage.getItem(adminStorageKeys.TOKEN);
   const url = "http://localhost:5000/user/allusers";
@@ -99,11 +117,13 @@ function UserTable(props) {
         const url = `http://localhost:5000/user/deleteuser/${newUsers[i]._id}`;
         axios
           .delete(url, axiosConfig)
-          .then((res) => toast.success("Delete Successfully"))
+          .then((res) => {
+            toast.success("Delete Successfully");
+          })
           .catch((err) => toast.error("Something Wrongs"));
       }
     }
-    setUsers([...newUsers]);
+    setUsers(newUsers);
   };
   const tableHooks = (hooks) => {
     hooks.visibleColumns.push((columns) => [
@@ -144,16 +164,254 @@ function UserTable(props) {
   } = tableInstance;
   useEffect(() => {
     fetchAllUsers();
-  }, [users]);
+  }, []);
+  let time = new Date();
+  const schema = yup
+    .object({
+      username: yup.string().required("Please enter Username"),
+
+      email: yup
+        .string()
+        .email("Invalid email format")
+        .required("Please enter your email"),
+      password: yup
+        .string()
+        .matches(/^.*(?=.{6,})/, "Password must contain at least 6 symbols")
+        .required("Please enter your password"),
+      rePassword: yup
+        .string()
+        .oneOf([yup.ref("password"), null], "Passwords must match"),
+      name: yup
+        .string()
+        .required("Please enter fullname")
+        .test(
+          "should has at least two words",
+          "Please enter at least two words",
+          (value) => value.split(" ").length >= 2
+        ),
+      gender: yup.string().required(),
+      dob: yup
+        .date()
+        .max(
+          new Date(Date.now() - 567648000000),
+          "You must be at least 18 years"
+        )
+        .required("Required"),
+      phonenumber: yup
+        .string()
+        .required("Please enter your phone number")
+        .matches(/^[0-9]+$/, "Must be only digits"),
+      nationalid: yup
+        .string()
+        .required("Please enter your ID number")
+        .matches(/^[0-9]+$/, "Must be only digits"),
+      creditcard: yup
+        .string()
+        .required("Please enter your card number")
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .min(16, "Please enter full number")
+        .max(19, "Wrong card number"),
+      carddate: yup.date().min(
+        new Date(Date.now() + 7889400), //ít nhất 3 tháng
+        "You must be at least 18 years"
+      ),
+      creditcardbrand: yup.string().required("Please enter issued"),
+      passportid: yup
+        .string()
+        .required("Please enter your passport number")
+        .matches(/^[0-9]+$/, "Must be only digits")
+        .min(8, "Please enter full number")
+        .max(8, "Wrong passport number"),
+      nationality: yup.string().required(),
+      address: yup.string().required("Please enter address"),
+    })
+    .required();
+  const form = useForm({
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      name: "",
+      rePassword: "",
+      gender: "",
+      dob: time,
+      phonenumber: "",
+      nationalid: "",
+      creditcard: "",
+      carddate: time,
+      creditcardbrand: "",
+      passportid: "",
+      nationality: "",
+      address: "",
+    },
+    resolver: yupResolver(schema),
+  });
+  const handleSubmit = (value) => {
+    const { onSubmit } = props;
+    if (onSubmit) {
+      onSubmit(value);
+    }
+    form.reset();
+  };
   return (
     <>
       <div className="content-wrapper">
         <div style={{ padding: "10px" }}>
-          <GlobalFilter
-            preGlobalFilteredRows={preGlobalFilteredRows}
-            setGlobalFilter={setGlobalFilter}
-            globalFilter={state.globalFilter}
-          />
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              setGlobalFilter={setGlobalFilter}
+              globalFilter={state.globalFilter}
+            />
+            <div>
+              <Button className="btnAddAdmin" onClick={handleOpen}>
+                Add
+              </Button>
+              <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+              >
+                <div className={classes.boxPosition}>
+                  <Fade in={open}>
+                    <Box className={classes.boxModal}>
+                      <div className="box-from-admin">
+                        <form onSubmit={form.handleSubmit(handleSubmit)}>
+                          <p className="login__desc text-center mt-0">
+                            User Infomation
+                          </p>
+                          <div className="flex-box">
+                            <InputField
+                              name="username"
+                              label="Username"
+                              form={form}
+                              required
+                            />
+                            <InputField
+                              name="email"
+                              label="Email"
+                              form={form}
+                              required
+                            />
+                          </div>
+                          <div className="flex-box">
+                            <InputPasswordField
+                              name="password"
+                              label="Password"
+                              form={form}
+                              required
+                            />
+                            <InputPasswordField
+                              name="rePassword"
+                              label="Re-password"
+                              form={form}
+                              required
+                            />
+                          </div>
+                          <div className="flex-box">
+                            <InputField
+                              name="name"
+                              label="Full Name"
+                              form={form}
+                              required
+                            />
+                            <div className="gender-box">
+                              <p>Gender:</p>
+                              <RadioGroupCustom name="gender" form={form} />
+                            </div>
+                          </div>
+
+                          <div className="flex-box">
+                            <div className="date-box ">
+                              <p className="date-box-text">Date of birth:</p>
+                              <DatePickerCustom name="dob" form={form} />
+                            </div>
+                            <InputField
+                              name="phonenumber"
+                              label="Phone Number"
+                              form={form}
+                              required
+                            />
+                          </div>
+
+                          <div className="flex-box">
+                            <InputField
+                              name="nationalid"
+                              label="ID Card"
+                              form={form}
+                              required
+                            />
+                            <InputField
+                              name="creditcard"
+                              label="Card Number"
+                              form={form}
+                              required
+                            />
+                          </div>
+                          <div className="flex-box">
+                            <div className="flex-box">
+                              <p className="date-box-text">Nationality</p>
+                              <SelectCustom name="nationality" form={form} />
+                            </div>
+
+                            <div className="date-box">
+                              <p className="date-box-text ml-20">
+                                Date for card:
+                              </p>
+                              <DatePickerCustom
+                                name="carddate"
+                                dateFormat={"MM/yyyy"}
+                                form={form}
+                              />
+                            </div>
+                          </div>
+                          <div className="flex-box">
+                            <InputField
+                              name="passportid"
+                              label="Passport"
+                              form={form}
+                              required
+                            />
+                            <InputField
+                              name="creditcardbrand"
+                              label="Issued by"
+                              form={form}
+                              required
+                            />
+                          </div>
+                          <TextareaCustom
+                            name="address"
+                            label="Address"
+                            form={form}
+                            required
+                          />
+                          <button
+                            type="submit"
+                            className="btn btn-sb-login mt-10"
+                            id="btn-login-submit"
+                          >
+                            Submit
+                          </button>
+                        </form>
+                      </div>
+                    </Box>
+                  </Fade>
+                </div>
+              </Modal>
+            </div>
+          </div>
+
           <table className={classes.table} {...getTableProps()}>
             <thead className={classes.thead}>
               {

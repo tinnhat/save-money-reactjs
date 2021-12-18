@@ -12,6 +12,7 @@ import SelectCustom from "../../../components/select";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Moment from "react-moment";
+
 import "moment-timezone";
 import { Link } from "react-router-dom";
 RegisterForm.propTypes = {
@@ -65,7 +66,10 @@ function RegisterForm(props) {
         .matches(/^[0-9]+$/, "Must be only digits")
         .min(16, "Please enter full number")
         .max(19, "Wrong card number"),
-      carddate: yup.date(),
+      carddate: yup.date().min(
+        new Date(Date.now() + 7889400), //ít nhất 3 tháng
+        "You must be at least 18 years"
+      ),
       creditcardbrand: yup.string().required("Please enter issued"),
       passportid: yup
         .string()

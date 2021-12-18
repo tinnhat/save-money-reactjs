@@ -46,3 +46,19 @@
     }
   }
 }
+
+.boxModal {
+  height: 600px;
+  background-color: #374045;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: auto;
+  border: 2px solid #000;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.table_boxModal__vEu77.MuiBox-root.css-0 {
+  padding: 20px !important;
+}
