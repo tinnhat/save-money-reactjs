@@ -11,9 +11,14 @@ function HeaderAdmin(props) {
       {/* <!-- Left navbar links --> */}
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" data-widget="pushmenu" href="#" role="button">
+          <Link
+            to="#"
+            className="nav-link"
+            data-widget="pushmenu"
+            role="button"
+          >
             <i className="fas fa-bars"></i>
-          </a>
+          </Link>
         </li>
         <li className="nav-item d-none d-sm-inline-block">
           <a href="index3.html" className="nav-link">
@@ -26,14 +31,6 @@ function HeaderAdmin(props) {
       <ul className="navbar-nav ml-auto">
         {/* <!-- Navbar Search --> */}
         <li className="nav-item">
-          <Link
-            className="nav-link"
-            data-widget="navbar-search"
-            to="/home"
-            role="button"
-          >
-            <i className="fas fa-search"></i>
-          </Link>
           <div className="navbar-search-block">
             <form className="form-inline">
               <div className="input-group input-group-sm">
@@ -62,12 +59,12 @@ function HeaderAdmin(props) {
 
         {/* <!-- Messages Dropdown Menu --> */}
         <li className="nav-item dropdown">
-          <a className="nav-link" data-toggle="dropdown" href="#">
+          <Link to="#" className="nav-link" data-toggle="dropdown" href="#">
             <i className="far fa-comments"></i>
             <span className="badge badge-danger navbar-badge">3</span>
-          </a>
+          </Link>
           <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="#" className="dropdown-item">
+            <Link to="#" className="dropdown-item">
               {/* <!-- Message Start --> */}
               <div className="media">
                 <img
@@ -89,7 +86,7 @@ function HeaderAdmin(props) {
                 </div>
               </div>
               {/* <!-- Message End --> */}
-            </a>
+            </Link>
             <div className="dropdown-divider"></div>
             <a href="#" className="dropdown-item">
               {/* <!-- Message Start --> */}

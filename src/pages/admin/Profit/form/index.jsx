@@ -47,6 +47,13 @@ function ProfitForm(props) {
                     return Moment(key.updatedAt).format("MM/DD/YYYY hh:mm");
                   },
                 };
+              } else if (key === "stopDate") {
+                return {
+                  Header: "Stop Date",
+                  accessor: (key) => {
+                    return Moment(key.updatedAt).format("MM/DD/YYYY hh:mm");
+                  },
+                };
               }
               return { Header: key, accessor: key };
             })
@@ -71,16 +78,18 @@ function ProfitForm(props) {
   } = tableInstance;
   useEffect(() => {
     fetchAllSavings();
-  }, [savings]);
+  }, []);
   return (
     <>
       <div className="content-wrapper">
         <div style={{ padding: "10px" }}>
-          <GlobalFilter
-            preGlobalFilteredRows={preGlobalFilteredRows}
-            setGlobalFilter={setGlobalFilter}
-            globalFilter={state.globalFilter}
-          />
+          <div>
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              setGlobalFilter={setGlobalFilter}
+              globalFilter={state.globalFilter}
+            />
+          </div>
           <table className={classes.table} {...getTableProps()}>
             <thead className={classes.thead}>
               {

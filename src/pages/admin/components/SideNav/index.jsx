@@ -12,11 +12,11 @@ function SideNav(props) {
   let navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem(adminStorageKeys.TOKEN);
-    navigate("/admin");
+    navigate(0);
   };
   return (
     <aside className="main-sidebar sidebar-dark-primary elevation-4">
-      <a href="index3.html" className="brand-link">
+      <Link to="#" className="brand-link">
         <img
           src={logo}
           alt="AdminLTE Logo"
@@ -24,7 +24,7 @@ function SideNav(props) {
           style={{ opacity: ".8" }}
         />
         <span className="brand-text font-weight-light">AdminLTE 3</span>
-      </a>
+      </Link>
       <div className="sidebar">
         <div className="user-panel mt-3 pb-3 mb-3 d-flex">
           <div className="image">
@@ -58,7 +58,8 @@ function SideNav(props) {
                 <p>Dashboard</p>
               </NavLink>
             </li>
-            <li className="nav-item">
+
+            <li className="nav-item menu-is-opening menu-open">
               <NavLink
                 exact
                 activeClassName="active"
@@ -68,9 +69,28 @@ function SideNav(props) {
                 <i className="nav-icon fas fa-th" />
                 <p>
                   Users
-                  <span className="right badge badge-danger">New</span>
+                  <i class="right fas fa-angle-left"></i>
                 </p>
               </NavLink>
+              <ul className="nav nav-treeview" style={{ display: "block" }}>
+                <li class="nav-item">
+                  <Link
+                    exact
+                    to="/admin/allusers/add"
+                    className="nav-link active"
+                  >
+                    <i class="nav-icon fas fa-user-plus"></i>
+                    <p>Add User</p>
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link exact to="/admin/allusers/edit" className="nav-link">
+                    <i class="fas fa-edit nav-icon"></i>
+                    <p>Edit/Delete User</p>
+                  </Link>
+                </li>
+              </ul>
             </li>
             <li className="nav-item">
               <NavLink

@@ -3,8 +3,10 @@ import { Route, Routes, Redirect, Navigate } from "react-router-dom";
 import adminStorageKeys from "./constant/admin-storage-keys";
 import storageKeys from "./constant/storage-keys";
 import Account from "./pages/account";
+import AddUser from "./pages/admin/addUser";
 import AllUsers from "./pages/admin/allUser";
 import AdminHomePage from "./pages/admin/components/homepage";
+import EditDeleteUser from "./pages/admin/editDeleteUser";
 import LoginAdmin from "./pages/admin/login";
 import Profit from "./pages/admin/Profit";
 
@@ -54,6 +56,14 @@ function App() {
         <Route
           path="/admin/profit"
           element={isLogin ? <Profit /> : <LoginAdmin />}
+        />
+        <Route
+          path="/admin/allusers/add"
+          element={isLogin ? <AddUser /> : <LoginAdmin />}
+        />
+        <Route
+          path="/admin/allusers/edit"
+          element={isLogin ? <EditDeleteUser /> : <LoginAdmin />}
         />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
