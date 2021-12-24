@@ -19,18 +19,15 @@ function Login(props) {
   const navigate = useNavigate();
   const url = "http://localhost:5000/user/login";
   const handleOnSubmit = async (value) => {
-    console.log("login submit", value);
     axios
       .post(url, value)
       .then((res) => {
-        console.log("data tra ve", res.data);
         localStorage.setItem(storageKeys.TOKEN, res.data.accesstoken);
         localStorage.setItem(storageKeys.USER, JSON.stringify(res.data.ruser));
         navigate("/home");
         navigate(0);
       })
       .catch((err) => {
-        console.log(err.response.data.msg);
         toast.error(err.response.data.msg);
       });
   };

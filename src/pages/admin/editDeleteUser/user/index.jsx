@@ -115,7 +115,7 @@ function EditDeleteForm(props) {
     };
     const newUsers = [...users];
     for (let i = 0; i < newUsers.length; i++) {
-      if (newUsers[i].name === value) {
+      if (newUsers[i]._id === value._id) {
         //check xem có phải admin không
         if (newUsers[i].role === 1) {
           toast.error("Access Denied");
@@ -135,18 +135,15 @@ function EditDeleteForm(props) {
   };
 
   const handleEditing = (value) => {
-    console.log(value);
-
     const newUsers = [...users];
     for (let i = 0; i < newUsers.length; i++) {
-      if (newUsers[i].name === value.name) {
+      if (newUsers[i]._id === value._id) {
         //check xem có phải admin không
         if (newUsers[i].role === 1) {
           toast.error("Access Denied");
           return;
         } else {
           //set value khi click vào edit
-          console.log("edit");
           form.setValue("_id", newUsers[i]._id);
           form.setValue("address", value.address);
           form.setValue("username", value.username);
@@ -166,8 +163,7 @@ function EditDeleteForm(props) {
           form.setValue("carddate", newCardDate);
           form.setValue("passportid", value.passportid);
           setOpen(true);
-
-          //edi
+          //edit
         }
       }
     }
@@ -187,7 +183,7 @@ function EditDeleteForm(props) {
         id: "Delete",
         Header: "Delete",
         Cell: ({ row }) => (
-          <Button onClick={() => handleDelete(row.values.name)}>Delete</Button>
+          <Button onClick={() => handleDelete(row.values)}>Delete</Button>
         ),
       },
     ]);

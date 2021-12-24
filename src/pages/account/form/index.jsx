@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import TextAccField from "../../../components/textfield";
 import DatePickerCustom from "../../../components/datePicker";
+import InputPasswordField from "../../../components/passwordInput";
 
 AccountForm.propTypes = {};
 
@@ -99,14 +100,13 @@ function AccountForm(props) {
     check = false;
   };
   const handleSubmit = (value) => {
-    console.log("check", check);
     const { onSubmit } = props;
     if (onSubmit) {
       if (check === false) {
         //submit ko thay đổi password
         delete value.reNewPassword;
         delete value.newPassword;
-        console.log("form submit ko thay doi pass", value);
+
         onSubmit(value);
       } else {
         //check pass
@@ -121,7 +121,7 @@ function AccountForm(props) {
             password: password,
             ...value,
           };
-          console.log("form submit doi pass", newValue);
+
           onSubmit(newValue);
         }
       }
@@ -314,7 +314,7 @@ function AccountForm(props) {
               </span>
               <br />
               <div className="changepass-box hide">
-                <TextAccField
+                <InputPasswordField
                   name="newPassword"
                   label="New Password"
                   form={form}
@@ -328,7 +328,7 @@ function AccountForm(props) {
                     backgroundColor: "#48df99",
                   }}
                 ></div>
-                <TextAccField
+                <InputPasswordField
                   name="reNewPassword"
                   label="Retype New Password"
                   form={form}

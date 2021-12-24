@@ -16,16 +16,14 @@ function EditDeleteUser(props) {
 
   const handleEditFormSubmit = async (value) => {
     const url = `http://localhost:5000/user/updateuser/${value._id}`;
-    console.log("form submit", value);
+
     axios
       .put(url, value)
       .then((res) => {
-        console.log(res.data.msg);
         toast.success(res.data.msg);
         navigate(0);
       })
       .catch((err) => {
-        console.log(err.response);
         toast.error("Something wrongs");
       });
   };

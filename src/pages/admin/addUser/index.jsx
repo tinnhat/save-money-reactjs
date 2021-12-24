@@ -22,12 +22,12 @@ function AddUser(props) {
     axios
       .post(url, newValue)
       .then((res) => {
-        console.log(res.data.msg);
+       
         toast.success(res.data.msg);
         navigate(0);
       })
       .catch((err) => {
-        console.log(err.response.data.msg);
+
         toast.error(err.response.data.msg);
       });
   };

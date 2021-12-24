@@ -15,16 +15,13 @@ function Account(props) {
   const data = JSON.parse(localStorage.getItem(storageKeys.USER));
   const url = `http://localhost:5000/user/updateuser/${data._id}`;
   const handleAccountFormSubmit = (value) => {
-    console.log("gui len server", value);
     axios
       .put(url, value)
       .then((res) => {
-        console.log(res.data.msg);
         toast.success(res.data.msg);
         navigate(0);
       })
       .catch((err) => {
-        console.log(err.data);
         toast.error("Something wrongs");
       });
   };

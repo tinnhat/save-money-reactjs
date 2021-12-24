@@ -15,7 +15,10 @@ function SideNav(props) {
     navigate(0);
   };
   return (
-    <aside className="main-sidebar sidebar-dark-primary elevation-4">
+    <aside
+      className="main-sidebar sidebar-dark-primary elevation-4"
+      style={{ position: "fixed", left: 0 }}
+    >
       <Link to="#" className="brand-link">
         <img
           src={logo}

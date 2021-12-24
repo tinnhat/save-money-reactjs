@@ -18,16 +18,13 @@ function Register(props) {
       role: 0,
       ...value,
     };
-    console.log("form submit", newValue);
     axios
       .post(url, newValue)
       .then((res) => {
-        console.log(res.data.msg);
         toast.success(res.data.msg);
       })
       .catch((err) => {
-        console.log(err.data);
-        toast.error("Something wrongs");
+        toast.error(err.response.data.msg);
       });
   };
   return (

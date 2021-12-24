@@ -18,12 +18,9 @@ function LoginAdmin(props) {
   const dispatch = useDispatch();
   const url = "http://localhost:5000/user/login";
   const handleOnSubmit = (value) => {
-    console.log("login submit", value);
     axios
       .post(url, value)
       .then((res) => {
-        console.log(res.data.accesstoken);
-        console.log("data tra ve", res.data);
         //check role
         //role =1 (admin sẽ vào trang admin)
         if (res.data.ruser.role === 1) {
@@ -35,7 +32,6 @@ function LoginAdmin(props) {
         }
       })
       .catch((err) => {
-        console.log(err.response.data.msg);
         toast.error(err.response.data.msg);
       });
   };
